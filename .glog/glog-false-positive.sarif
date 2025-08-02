@@ -38,6 +38,34 @@
                   "DS176209"
                 ]
               }
+            },
+            {
+              "id": "DS176209",
+              "name": "SuspiciousComment",
+              "shortDescription": {
+                "text": "A \"TODO\" or similar was left in source code, possibly indicating incomplete functionality"
+              },
+              "fullDescription": {
+                "text": "Suspicious comment: A \"TODO\" or similar was left in source code, possibly indicating incomplete functionality"
+              },
+              "defaultConfiguration": {
+                "enabled": true,
+                "level": "note"
+              },
+              "helpUri": "https://github.com/Microsoft/DevSkim/blob/main/guidance/DS176209.md",
+              "help": {
+                "text": "A \"TODO\" or similar was left in source code, possibly indicating incomplete functionality",
+                "markdown": "Visit [https://github.com/Microsoft/DevSkim/blob/main/guidance/DS176209.md](https://github.com/Microsoft/DevSkim/blob/main/guidance/DS176209.md) for guidance on this issue."
+              },
+              "properties": {
+                "DevSkimSeverity": "ManualReview",
+                "DevSkimConfidence": "High",
+                "precision": "high",
+                "problem.severity": "recommendation",
+                "tags": [
+                  "DS176209"
+                ]
+              }
             }
           ],
           "language": "en-US",
@@ -69,46 +97,6 @@
                   "endLine": 2844,
                   "endColumn": 15,
                   "charOffset": 86505,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/base/hip/hip_kernels_csr.hpp"
-                },
-                "region": {
-                  "startLine": 494,
-                  "startColumn": 7,
-                  "endLine": 494,
-                  "endColumn": 11,
-                  "charOffset": 18014,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -181,54 +169,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/base/hip/hip_matrix_csr.cpp"
+                  "uri": "src/base/hip/hip_kernels_csr.hpp"
                 },
                 "region": {
-                  "startLine": 3460,
-                  "startColumn": 15,
-                  "endLine": 3460,
-                  "endColumn": 19,
-                  "charOffset": 126925,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/solvers/krylov/fcg.cpp"
-                },
-                "region": {
-                  "startLine": 232,
+                  "startLine": 494,
                   "startColumn": 7,
-                  "endLine": 232,
+                  "endLine": 494,
                   "endColumn": 11,
-                  "charOffset": 6962,
+                  "charOffset": 18014,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -301,14 +249,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "clients/include/testing_saamg.hpp"
+                  "uri": "src/base/hip/hip_matrix_csr.cpp"
                 },
                 "region": {
-                  "startLine": 165,
-                  "startColumn": 19,
-                  "endLine": 165,
-                  "endColumn": 23,
-                  "charOffset": 4603,
+                  "startLine": 3460,
+                  "startColumn": 15,
+                  "endLine": 3460,
+                  "endColumn": 19,
+                  "charOffset": 126925,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -341,14 +289,134 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "clients/include/testing_ruge_stueben_amg.hpp"
+                  "uri": "src/base/host/host_matrix_coo.cpp"
                 },
                 "region": {
-                  "startLine": 168,
+                  "startLine": 538,
+                  "startColumn": 11,
+                  "endLine": 538,
+                  "endColumn": 15,
+                  "charOffset": 15586,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/include/testing_uaamg.hpp"
+                },
+                "region": {
+                  "startLine": 165,
                   "startColumn": 19,
-                  "endLine": 168,
+                  "endLine": 165,
                   "endColumn": 23,
-                  "charOffset": 4717,
+                  "charOffset": 4601,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/base_matrix.cpp"
+                },
+                "region": {
+                  "startLine": 933,
+                  "startColumn": 7,
+                  "endLine": 933,
+                  "endColumn": 11,
+                  "charOffset": 32663,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/include/testing_saamg.hpp"
+                },
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 19,
+                  "endLine": 165,
+                  "endColumn": 23,
+                  "charOffset": 4603,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -501,14 +569,54 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/solvers/solver.cpp"
+                  "uri": "src/solvers/krylov/fcg.cpp"
                 },
                 "region": {
-                  "startLine": 80,
-                  "startColumn": 11,
-                  "endLine": 80,
-                  "endColumn": 15,
-                  "charOffset": 2809,
+                  "startLine": 232,
+                  "startColumn": 7,
+                  "endLine": 232,
+                  "endColumn": 11,
+                  "charOffset": 6962,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/include/testing_ruge_stueben_amg.hpp"
+                },
+                "region": {
+                  "startLine": 168,
+                  "startColumn": 19,
+                  "endLine": 168,
+                  "endColumn": 23,
+                  "charOffset": 4717,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -581,14 +689,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "clients/include/testing_uaamg.hpp"
+                  "uri": "src/solvers/solver.cpp"
                 },
                 "region": {
-                  "startLine": 165,
-                  "startColumn": 19,
-                  "endLine": 165,
-                  "endColumn": 23,
-                  "charOffset": 4601,
+                  "startLine": 80,
+                  "startColumn": 11,
+                  "endLine": 80,
+                  "endColumn": 15,
+                  "charOffset": 2809,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -629,46 +737,6 @@
                   "endLine": 287,
                   "endColumn": 11,
                   "charOffset": 8501,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/base/base_matrix.cpp"
-                },
-                "region": {
-                  "startLine": 933,
-                  "startColumn": 7,
-                  "endLine": 933,
-                  "endColumn": 11,
-                  "charOffset": 32663,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
