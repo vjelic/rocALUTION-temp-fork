@@ -40,30 +40,136 @@
               }
             },
             {
-              "id": "DS176209",
-              "name": "SuspiciousComment",
+              "id": "DS161085",
+              "name": "ProblematicCFunctionDetectedMalloc",
               "shortDescription": {
-                "text": "A \"TODO\" or similar was left in source code, possibly indicating incomplete functionality"
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
               },
               "fullDescription": {
-                "text": "Suspicious comment: A \"TODO\" or similar was left in source code, possibly indicating incomplete functionality"
+                "text": "Problematic C function detected (malloc): If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
               },
               "defaultConfiguration": {
                 "enabled": true,
                 "level": "note"
               },
-              "helpUri": "https://github.com/Microsoft/DevSkim/blob/main/guidance/DS176209.md",
+              "helpUri": "https://github.com/Microsoft/DevSkim/blob/main/guidance/DS161085.md",
               "help": {
-                "text": "A \"TODO\" or similar was left in source code, possibly indicating incomplete functionality",
-                "markdown": "Visit [https://github.com/Microsoft/DevSkim/blob/main/guidance/DS176209.md](https://github.com/Microsoft/DevSkim/blob/main/guidance/DS176209.md) for guidance on this issue."
+                "text": "calloc handles the most common integer math in memory allocation (# of elements * their size) with error handling to prevent overflows in most implementations, and zeros out memory",
+                "markdown": "Visit [https://github.com/Microsoft/DevSkim/blob/main/guidance/DS161085.md](https://github.com/Microsoft/DevSkim/blob/main/guidance/DS161085.md) for guidance on this issue."
               },
               "properties": {
-                "DevSkimSeverity": "ManualReview",
+                "DevSkimSeverity": "BestPractice",
                 "DevSkimConfidence": "High",
                 "precision": "high",
                 "problem.severity": "recommendation",
                 "tags": [
-                  "DS176209"
+                  "DS161085"
+                ]
+              }
+            },
+            {
+              "id": "DS154189",
+              "name": "BannedCFunctionDetected",
+              "shortDescription": {
+                "text": "These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'."
+              },
+              "fullDescription": {
+                "text": "Banned C function detected: These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'."
+              },
+              "defaultConfiguration": {
+                "enabled": true,
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/Microsoft/DevSkim/blob/main/guidance/DS154189.md",
+              "help": {
+                "text": "These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'.",
+                "markdown": "Visit [https://github.com/Microsoft/DevSkim/blob/main/guidance/DS154189.md](https://github.com/Microsoft/DevSkim/blob/main/guidance/DS154189.md) for guidance on this issue."
+              },
+              "properties": {
+                "DevSkimSeverity": "Moderate",
+                "DevSkimConfidence": "High",
+                "precision": "high",
+                "problem.severity": "warning",
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "7da628c8-f637-3f80-943b-211b0764a5d0",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn C++ programming, the vulnerability \"Avoid Using Non-Cryptographic or Weak Random Number Generators\" refers to the use of weak or non-cryptographic random number generators that can lead to predictable or easily guessable values. This can be exploited by attackers to predict the outcome of the program, leading to potential security risks.\n\nIn the given code snippet, `rand()` function is used which is a weak random number generator. It generates pseudo-random numbers using a linear congruential generator with parameters that are not secure.\n\n```cpp\nu2 = static_cast<ValueType>(rand()) / static_cast<ValueType>(RAND_MAX);\n```\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, use a strong cryptographic random number generator. In C++, you can use functions provided by the `<random>` library, such as `std::random_device` or `std::mt19937`.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code using `std::random_device`:\n\n```cpp\n#include <random>\n\nstd::random_device rd;\nstd::mt19937 gen(rd());\nstd::uniform_real_distribution<> dis(0, 1);\n\nu2 = dis(gen);\n```\n\n## Library Dependencies\n\nThe fixed code requires the `<random>` library.\n\n## References\n\n- [CWE-338: Use of Cryptographically Weak PRNG](https://cwe.mitre.org/data/definitions/338.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS148264",
+                  "7da628c8-f637-3f80-943b-211b0764a5d0"
+                ]
+              }
+            },
+            {
+              "id": "dfe1601c-8bb9-30ad-8dae-681e2af0b405",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn C++ programming, the vulnerability \"Avoid Using Non-Cryptographic or Weak Random Number Generators\" refers to the use of weak or non-cryptographic random number generators that can lead to predictable or easily guessable values. This can be exploited by attackers to predict the outcome of the program, leading to potential security risks.\n\nIn the given code snippet, `rand()` function is used which is a weak random number generator. It generates pseudo-random numbers using a linear congruential generator with parameters that are not secure.\n\n```cpp\nu2 = static_cast<ValueType>(rand()) / static_cast<ValueType>(RAND_MAX);\n```\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, use a strong cryptographic random number generator. In C++, you can use functions provided by the `<random>` library, such as `std::random_device` or `std::mt19937`.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code using `std::random_device`:\n\n```cpp\n#include <random>\n\nstd::random_device rd;\nstd::mt19937 gen(rd());\nstd::uniform_real_distribution<> dis(0, 1);\n\nu2 = dis(gen);\n```\n\n## Library Dependencies\n\nThe fixed code requires the `<random>` library.\n\n## References\n\n- [CWE-338: Use of Cryptographically Weak PRNG](https://cwe.mitre.org/data/definitions/338.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS148264",
+                  "dfe1601c-8bb9-30ad-8dae-681e2af0b405"
+                ]
+              }
+            },
+            {
+              "id": "fb2c31f1-4e3e-3941-9725-414c09264643",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn C++ programming, the vulnerability \"Avoid Using Weak or Non-Cryptographic Random Number Generators\" refers to the use of weak random number generators or non-cryptographic random number generators that can lead to predictable values and hence can be exploited by an attacker. The `rand()` function in C++ is a weak random number generator as it uses a deterministic algorithm and can produce predictable numbers if the seed is known.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, use a strong cryptographic random number generator. In C++, you can use functions provided by libraries like `<random>` which provides a variety of random number generators that are more secure and less predictable than `rand()`. \n\n## Source Code Fix Recommendation\n\nReplace the `rand()` function with a secure random number generator. Here is an example using the Mersenne Twister engine provided by the `<random>` library:\n\n```cpp\n#include <random>\n\nstd::random_device rd;\nstd::mt19937 gen(rd());\nstd::uniform_real_distribution<> dis(0, 1);\n\nu1 = dis(gen);\n```\n\n## Library Dependencies\n\nThe code example requires the `<random>` library.\n\n## References\n\n- [CWE-338: Use of Cryptographically Weak PRNG](https://cwe.mitre.org/data/definitions/338.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS148264",
+                  "fb2c31f1-4e3e-3941-9725-414c09264643"
+                ]
+              }
+            },
+            {
+              "id": "fb64ac59-b947-3df6-a5a4-e77806d67083",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn C++ programming, the vulnerability \"Avoid Using Weak or Non-Cryptographic Random Number Generators\" refers to the use of weak random number generators or non-cryptographic random number generators that can lead to predictable values and hence can be exploited by an attacker. The `rand()` function in C++ is a weak random number generator as it uses a deterministic algorithm and can produce predictable numbers if the seed is known.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, use a strong cryptographic random number generator. In C++, you can use functions provided by libraries like `<random>` which provides a variety of random number generators that are more secure and less predictable than `rand()`. \n\n## Source Code Fix Recommendation\n\nReplace the `rand()` function with a secure random number generator. Here is an example using the Mersenne Twister engine provided by the `<random>` library:\n\n```cpp\n#include <random>\n\nstd::random_device rd;\nstd::mt19937 gen(rd());\nstd::uniform_real_distribution<> dis(0, 1);\n\nu1 = dis(gen);\n```\n\n## Library Dependencies\n\nThe code example requires the `<random>` library.\n\n## References\n\n- [CWE-338: Use of Cryptographically Weak PRNG](https://cwe.mitre.org/data/definitions/338.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS148264",
+                  "fb64ac59-b947-3df6-a5a4-e77806d67083"
+                ]
+              }
+            },
+            {
+              "id": "eeeb549a-4e88-3cd9-9833-7f306eb682cb",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn C++ programming, the vulnerability \"Avoid Using Non-Cryptographic or Weak Random Number Generators\" refers to the use of weak or non-cryptographic random number generators that can lead to predictable or easily guessable random numbers. This can be exploited by attackers to predict the outcome of the program's operations that rely on these random numbers, leading to potential security breaches.\n\nThe `rand()` function in C++ is a weak random number generator as it uses a deterministic algorithm and can produce predictable numbers if the seed is known. This makes it unsuitable for generating random numbers in security-sensitive contexts.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, use a strong, cryptographic random number generator instead of `rand()`. In C++, you can use functions provided by the `<random>` library, such as `std::random_device` and `std::mt19937`.\n\n## Source Code Fix Recommendation\n\nReplace the `rand()` function with a cryptographic random number generator. Here is an example of how to do this:\n\n```cpp\n#include <random>\n\nstd::random_device rd;\nstd::mt19937 gen(rd());\nstd::uniform_real_distribution<> dis(a, b);\n\nauto random_value = dis(gen);\n```\n\nIn this code, `std::random_device` is a non-deterministic random number generator, and `std::mt19937` is a Mersenne Twister pseudorandom generator of 32-bit numbers with a state size of 19937 bits. `std::uniform_real_distribution` produces random floating-point numbers in the range [a, b).\n\n## Library Dependencies\n\nThe code example requires the `<random>` library.\n\n## References\n\n- [CWE-338: Use of Cryptographically Weak PRNG](https://cwe.mitre.org/data/definitions/338.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS148264",
+                  "eeeb549a-4e88-3cd9-9833-7f306eb682cb"
+                ]
+              }
+            },
+            {
+              "id": "86340525-2329-3626-b4ce-78d4e753fb1f",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn C++ programming, the vulnerability \"Avoid Using Non-Cryptographic or Weak Random Number Generators\" refers to the use of weak or non-cryptographic random number generators that can lead to predictable or easily guessable random numbers. This can be exploited by attackers to predict the outcome of the program's operations that rely on these random numbers, leading to potential security breaches.\n\nThe `rand()` function in C++ is a weak random number generator as it uses a deterministic algorithm and can produce predictable numbers if the seed is known. This makes it unsuitable for generating random numbers in security-sensitive contexts.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, use a strong, cryptographic random number generator instead of `rand()`. In C++, you can use functions provided by the `<random>` library, such as `std::random_device` and `std::mt19937`.\n\n## Source Code Fix Recommendation\n\nReplace the `rand()` function with a cryptographic random number generator. Here is an example of how to do this:\n\n```cpp\n#include <random>\n\nstd::random_device rd;\nstd::mt19937 gen(rd());\nstd::uniform_real_distribution<> dis(a, b);\n\nauto random_value = dis(gen);\n```\n\nIn this code, `std::random_device` is a non-deterministic random number generator, and `std::mt19937` is a Mersenne Twister pseudorandom generator of 32-bit numbers with a state size of 19937 bits. `std::uniform_real_distribution` produces random floating-point numbers in the range [a, b).\n\n## Library Dependencies\n\nThe code example requires the `<random>` library.\n\n## References\n\n- [CWE-338: Use of Cryptographically Weak PRNG](https://cwe.mitre.org/data/definitions/338.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS148264",
+                  "86340525-2329-3626-b4ce-78d4e753fb1f"
                 ]
               }
             }
@@ -119,30 +225,30 @@
           }
         },
         {
-          "ruleId": "DS176209",
+          "ruleId": "DS161085",
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Suspicious comment"
+            "text": "Problematic C function detected (malloc)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/solvers/preconditioners/preconditioner_multicolored.cpp"
+                  "uri": "src/base/host/host_matrix_csr.cpp"
                 },
                 "region": {
-                  "startLine": 319,
-                  "startColumn": 11,
-                  "endLine": 319,
-                  "endColumn": 15,
-                  "charOffset": 10953,
-                  "charLength": 4,
+                  "startLine": 1510,
+                  "startColumn": 44,
+                  "endLine": 1510,
+                  "endColumn": 81,
+                  "charOffset": 46385,
+                  "charLength": 37,
                   "snippet": {
-                    "text": "TODO",
+                    "text": "malloc(alloc_size * sizeof(ValueType)",
                     "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
+                      "text": "malloc(alloc_size * sizeof(ValueType)",
+                      "markdown": "`malloc(alloc_size * sizeof(ValueType)`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -150,131 +256,36 @@
               }
             }
           ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
+          "fixes": [
             {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/base/hip/hip_kernels_csr.hpp"
-                },
-                "region": {
-                  "startLine": 494,
-                  "startColumn": 7,
-                  "endLine": 494,
-                  "endColumn": 11,
-                  "charOffset": 18014,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/base/host/host_matrix_csr.cpp"
                   },
-                  "sourceLanguage": "cpp"
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 46385,
+                        "charLength": 37
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
                 }
-              }
+              ]
             }
           ],
           "properties": {
-            "DevSkimSeverity": "ManualReview",
+            "DevSkimSeverity": "BestPractice",
             "DevSkimConfidence": "High",
             "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/solvers/preconditioners/preconditioner_multicolored_gs.cpp"
-                },
-                "region": {
-                  "startLine": 57,
-                  "startColumn": 7,
-                  "endLine": 57,
-                  "endColumn": 11,
-                  "charOffset": 2186,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/base/hip/hip_matrix_csr.cpp"
-                },
-                "region": {
-                  "startLine": 3460,
-                  "startColumn": 15,
-                  "endLine": 3460,
-                  "endColumn": 19,
-                  "charOffset": 126925,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
+              "API.DangerousAPI.ProblematicFunction"
             ]
           }
         },
@@ -319,6 +330,71 @@
           }
         },
         {
+          "ruleId": "DS161085",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Problematic C function detected (malloc)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_matrix_csr.cpp"
+                },
+                "region": {
+                  "startLine": 1490,
+                  "startColumn": 40,
+                  "endLine": 1490,
+                  "endColumn": 66,
+                  "charOffset": 45681,
+                  "charLength": 26,
+                  "snippet": {
+                    "text": "malloc(nrow * sizeof(bool)",
+                    "rendered": {
+                      "text": "malloc(nrow * sizeof(bool)",
+                      "markdown": "`malloc(nrow * sizeof(bool)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/base/host/host_matrix_csr.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 45681,
+                        "charLength": 26
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
           "ruleId": "DS176209",
           "kind": "fail",
           "level": "note",
@@ -329,14 +405,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "clients/include/testing_uaamg.hpp"
+                  "uri": "src/base/host/host_vector.cpp"
                 },
                 "region": {
-                  "startLine": 165,
-                  "startColumn": 19,
-                  "endLine": 165,
-                  "endColumn": 23,
-                  "charOffset": 4601,
+                  "startLine": 628,
+                  "startColumn": 16,
+                  "endLine": 628,
+                  "endColumn": 20,
+                  "charOffset": 18005,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -369,174 +445,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/base/base_matrix.cpp"
+                  "uri": "src/base/host/host_vector.cpp"
                 },
                 "region": {
-                  "startLine": 933,
-                  "startColumn": 7,
-                  "endLine": 933,
-                  "endColumn": 11,
-                  "charOffset": 32663,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "clients/include/testing_saamg.hpp"
-                },
-                "region": {
-                  "startLine": 165,
-                  "startColumn": 19,
-                  "endLine": 165,
-                  "endColumn": 23,
-                  "charOffset": 4603,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/solvers/mixed_precision.cpp"
-                },
-                "region": {
-                  "startLine": 424,
-                  "startColumn": 15,
-                  "endLine": 424,
-                  "endColumn": 19,
-                  "charOffset": 13597,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/solvers/mixed_precision.cpp"
-                },
-                "region": {
-                  "startLine": 397,
-                  "startColumn": 15,
-                  "endLine": 397,
-                  "endColumn": 19,
-                  "charOffset": 12649,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/solvers/mixed_precision.cpp"
-                },
-                "region": {
-                  "startLine": 196,
+                  "startLine": 532,
                   "startColumn": 11,
-                  "endLine": 196,
+                  "endLine": 532,
                   "endColumn": 15,
-                  "charOffset": 6502,
+                  "charOffset": 15162,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -555,6 +471,71 @@
             "DevSkimConfidence": "High",
             "tags": [
               "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Problematic C function detected (malloc)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_matrix_csr.cpp"
+                },
+                "region": {
+                  "startLine": 1509,
+                  "startColumn": 38,
+                  "endLine": 1509,
+                  "endColumn": 69,
+                  "charOffset": 46307,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "malloc(alloc_size * sizeof(int)",
+                    "rendered": {
+                      "text": "malloc(alloc_size * sizeof(int)",
+                      "markdown": "`malloc(alloc_size * sizeof(int)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/base/host/host_matrix_csr.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 46307,
+                        "charLength": 31
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
             ]
           }
         },
@@ -577,126 +558,6 @@
                   "endLine": 232,
                   "endColumn": 11,
                   "charOffset": 6962,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "clients/include/testing_ruge_stueben_amg.hpp"
-                },
-                "region": {
-                  "startLine": 168,
-                  "startColumn": 19,
-                  "endLine": 168,
-                  "endColumn": 23,
-                  "charOffset": 4717,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "clients/include/testing_pairwise_amg.hpp"
-                },
-                "region": {
-                  "startLine": 172,
-                  "startColumn": 19,
-                  "endLine": 172,
-                  "endColumn": 23,
-                  "charOffset": 4828,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "TODO",
-                    "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "ManualReview",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "Hygiene.Comment.Suspicious"
-            ]
-          }
-        },
-        {
-          "ruleId": "DS176209",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Suspicious comment"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/solvers/solver.cpp"
-                },
-                "region": {
-                  "startLine": 80,
-                  "startColumn": 11,
-                  "endLine": 80,
-                  "endColumn": 15,
-                  "charOffset": 2809,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -849,6 +710,646 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "src/base/hip/hip_matrix_csr.cpp"
+                },
+                "region": {
+                  "startLine": 3460,
+                  "startColumn": 15,
+                  "endLine": 3460,
+                  "endColumn": 19,
+                  "charOffset": 126925,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 396,
+                  "startColumn": 12,
+                  "endLine": 396,
+                  "endColumn": 19,
+                  "charOffset": 11851,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 392,
+                  "startColumn": 8,
+                  "endLine": 392,
+                  "endColumn": 15,
+                  "charOffset": 11745,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 368,
+                  "startColumn": 8,
+                  "endLine": 368,
+                  "endColumn": 15,
+                  "charOffset": 11011,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 359,
+                  "startColumn": 8,
+                  "endLine": 359,
+                  "endColumn": 15,
+                  "charOffset": 10731,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 351,
+                  "startColumn": 8,
+                  "endLine": 351,
+                  "endColumn": 15,
+                  "charOffset": 10485,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 344,
+                  "startColumn": 8,
+                  "endLine": 344,
+                  "endColumn": 15,
+                  "charOffset": 10256,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 337,
+                  "startColumn": 8,
+                  "endLine": 337,
+                  "endColumn": 15,
+                  "charOffset": 9985,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 324,
+                  "startColumn": 8,
+                  "endLine": 324,
+                  "endColumn": 15,
+                  "charOffset": 9516,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "fprintf",
+                    "rendered": {
+                      "text": "fprintf",
+                      "markdown": "`fprintf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 201,
+                  "startColumn": 19,
+                  "endLine": 201,
+                  "endColumn": 25,
+                  "charOffset": 6346,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "fscanf",
+                    "rendered": {
+                      "text": "fscanf",
+                      "markdown": "`fscanf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 19,
+                  "endLine": 188,
+                  "endColumn": 25,
+                  "charOffset": 5929,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "fscanf",
+                    "rendered": {
+                      "text": "fscanf",
+                      "markdown": "`fscanf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 174,
+                  "startColumn": 19,
+                  "endLine": 174,
+                  "endColumn": 25,
+                  "charOffset": 5438,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "fscanf",
+                    "rendered": {
+                      "text": "fscanf",
+                      "markdown": "`fscanf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 154,
+                  "startColumn": 14,
+                  "endLine": 154,
+                  "endColumn": 20,
+                  "charOffset": 4877,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "sscanf",
+                    "rendered": {
+                      "text": "sscanf",
+                      "markdown": "`sscanf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Banned C function detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_io.cpp"
+                },
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 11,
+                  "endLine": 62,
+                  "endColumn": 17,
+                  "charOffset": 2006,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "sscanf",
+                    "rendered": {
+                      "text": "sscanf",
+                      "markdown": "`sscanf`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/solvers/preconditioners/preconditioner_multicolored.cpp"
+                },
+                "region": {
+                  "startLine": 319,
+                  "startColumn": 11,
+                  "endLine": 319,
+                  "endColumn": 15,
+                  "charOffset": 10953,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/base_matrix.cpp"
+                },
+                "region": {
+                  "startLine": 933,
+                  "startColumn": 7,
+                  "endLine": 933,
+                  "endColumn": 11,
+                  "charOffset": 32663,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "src/base/local_matrix.cpp"
                 },
                 "region": {
@@ -857,6 +1358,246 @@
                   "endLine": 2011,
                   "endColumn": 19,
                   "charOffset": 61806,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/global_matrix.cpp"
+                },
+                "region": {
+                  "startLine": 1232,
+                  "startColumn": 11,
+                  "endLine": 1232,
+                  "endColumn": 15,
+                  "charOffset": 40973,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/global_matrix.cpp"
+                },
+                "region": {
+                  "startLine": 1197,
+                  "startColumn": 11,
+                  "endLine": 1197,
+                  "endColumn": 15,
+                  "charOffset": 39661,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/global_matrix.cpp"
+                },
+                "region": {
+                  "startLine": 1168,
+                  "startColumn": 11,
+                  "endLine": 1168,
+                  "endColumn": 15,
+                  "charOffset": 38502,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/solvers/preconditioners/preconditioner_multicolored_gs.cpp"
+                },
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 7,
+                  "endLine": 57,
+                  "endColumn": 11,
+                  "charOffset": 2186,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/utils/communicator.cpp"
+                },
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 11,
+                  "endLine": 62,
+                  "endColumn": 15,
+                  "charOffset": 2597,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/hip/hip_kernels_csr.hpp"
+                },
+                "region": {
+                  "startLine": 494,
+                  "startColumn": 7,
+                  "endLine": 494,
+                  "endColumn": 11,
+                  "charOffset": 18014,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -929,14 +1670,214 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/utils/communicator.cpp"
+                  "uri": "clients/include/testing_saamg.hpp"
                 },
                 "region": {
-                  "startLine": 62,
+                  "startLine": 165,
+                  "startColumn": 19,
+                  "endLine": 165,
+                  "endColumn": 23,
+                  "charOffset": 4603,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/include/testing_pairwise_amg.hpp"
+                },
+                "region": {
+                  "startLine": 172,
+                  "startColumn": 19,
+                  "endLine": 172,
+                  "endColumn": 23,
+                  "charOffset": 4828,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "clients/include/testing_uaamg.hpp"
+                },
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 19,
+                  "endLine": 165,
+                  "endColumn": 23,
+                  "charOffset": 4601,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/solvers/mixed_precision.cpp"
+                },
+                "region": {
+                  "startLine": 424,
+                  "startColumn": 15,
+                  "endLine": 424,
+                  "endColumn": 19,
+                  "charOffset": 13597,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/solvers/mixed_precision.cpp"
+                },
+                "region": {
+                  "startLine": 397,
+                  "startColumn": 15,
+                  "endLine": 397,
+                  "endColumn": 19,
+                  "charOffset": 12649,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "DS176209",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/solvers/mixed_precision.cpp"
+                },
+                "region": {
+                  "startLine": 196,
                   "startColumn": 11,
-                  "endLine": 62,
+                  "endLine": 196,
                   "endColumn": 15,
-                  "charOffset": 2597,
+                  "charOffset": 6502,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -1169,14 +2110,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/base/host/host_vector.cpp"
+                  "uri": "clients/include/testing_ruge_stueben_amg.hpp"
                 },
                 "region": {
-                  "startLine": 628,
-                  "startColumn": 16,
-                  "endLine": 628,
-                  "endColumn": 20,
-                  "charOffset": 18005,
+                  "startLine": 168,
+                  "startColumn": 19,
+                  "endLine": 168,
+                  "endColumn": 23,
+                  "charOffset": 4717,
                   "charLength": 4,
                   "snippet": {
                     "text": "TODO",
@@ -1204,6 +2145,46 @@
           "level": "note",
           "message": {
             "text": "Suspicious comment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/solvers/solver.cpp"
+                },
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 11,
+                  "endLine": 80,
+                  "endColumn": 15,
+                  "charOffset": 2809,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "TODO",
+                    "rendered": {
+                      "text": "TODO",
+                      "markdown": "`TODO`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "ManualReview",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Hygiene.Comment.Suspicious"
+            ]
+          }
+        },
+        {
+          "ruleId": "7da628c8-f637-3f80-943b-211b0764a5d0",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Avoid Using Non-Cryptographic or Weak Random Number Generators"
           },
           "locations": [
             {
@@ -1212,17 +2193,17 @@
                   "uri": "src/base/host/host_vector.cpp"
                 },
                 "region": {
-                  "startLine": 532,
-                  "startColumn": 11,
-                  "endLine": 532,
-                  "endColumn": 15,
-                  "charOffset": 15162,
-                  "charLength": 4,
+                  "startLine": 427,
+                  "startColumn": 50,
+                  "endLine": 427,
+                  "endColumn": 55,
+                  "charOffset": 12346,
+                  "charLength": 5,
                   "snippet": {
-                    "text": "TODO",
+                    "text": "rand(",
                     "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
+                      "text": "rand(",
+                      "markdown": "`rand(`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -1231,38 +2212,38 @@
             }
           ],
           "properties": {
-            "DevSkimSeverity": "ManualReview",
+            "DevSkimSeverity": "Important",
             "DevSkimConfidence": "High",
             "tags": [
-              "Hygiene.Comment.Suspicious"
+              "Cryptography.PRNG.Weak"
             ]
           }
         },
         {
-          "ruleId": "DS176209",
+          "ruleId": "dfe1601c-8bb9-30ad-8dae-681e2af0b405",
           "kind": "fail",
-          "level": "note",
+          "level": "error",
           "message": {
-            "text": "Suspicious comment"
+            "text": "Avoid Using Non-Cryptographic or Weak Random Number Generators"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/base/global_matrix.cpp"
+                  "uri": "src/base/host/host_vector.cpp"
                 },
                 "region": {
-                  "startLine": 1232,
-                  "startColumn": 11,
-                  "endLine": 1232,
-                  "endColumn": 15,
-                  "charOffset": 40973,
-                  "charLength": 4,
+                  "startLine": 427,
+                  "startColumn": 83,
+                  "endLine": 427,
+                  "endColumn": 91,
+                  "charOffset": 12379,
+                  "charLength": 8,
                   "snippet": {
-                    "text": "TODO",
+                    "text": "RAND_MAX",
                     "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
+                      "text": "RAND_MAX",
+                      "markdown": "`RAND_MAX`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -1271,38 +2252,38 @@
             }
           ],
           "properties": {
-            "DevSkimSeverity": "ManualReview",
+            "DevSkimSeverity": "Important",
             "DevSkimConfidence": "High",
             "tags": [
-              "Hygiene.Comment.Suspicious"
+              "Cryptography.PRNG.Weak"
             ]
           }
         },
         {
-          "ruleId": "DS176209",
+          "ruleId": "fb2c31f1-4e3e-3941-9725-414c09264643",
           "kind": "fail",
-          "level": "note",
+          "level": "error",
           "message": {
-            "text": "Suspicious comment"
+            "text": "Avoid Using Weak or Non-Cryptographic Random Number Generators"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/base/global_matrix.cpp"
+                  "uri": "src/base/host/host_vector.cpp"
                 },
                 "region": {
-                  "startLine": 1197,
-                  "startColumn": 11,
-                  "endLine": 1197,
-                  "endColumn": 15,
-                  "charOffset": 39661,
-                  "charLength": 4,
+                  "startLine": 426,
+                  "startColumn": 83,
+                  "endLine": 426,
+                  "endColumn": 91,
+                  "charOffset": 12285,
+                  "charLength": 8,
                   "snippet": {
-                    "text": "TODO",
+                    "text": "RAND_MAX",
                     "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
+                      "text": "RAND_MAX",
+                      "markdown": "`RAND_MAX`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -1311,38 +2292,38 @@
             }
           ],
           "properties": {
-            "DevSkimSeverity": "ManualReview",
+            "DevSkimSeverity": "Important",
             "DevSkimConfidence": "High",
             "tags": [
-              "Hygiene.Comment.Suspicious"
+              "Cryptography.PRNG.Weak"
             ]
           }
         },
         {
-          "ruleId": "DS176209",
+          "ruleId": "fb64ac59-b947-3df6-a5a4-e77806d67083",
           "kind": "fail",
-          "level": "note",
+          "level": "error",
           "message": {
-            "text": "Suspicious comment"
+            "text": "Avoid Using Weak or Non-Cryptographic Random Number Generators"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/base/global_matrix.cpp"
+                  "uri": "src/base/host/host_vector.cpp"
                 },
                 "region": {
-                  "startLine": 1168,
-                  "startColumn": 11,
-                  "endLine": 1168,
-                  "endColumn": 15,
-                  "charOffset": 38502,
-                  "charLength": 4,
+                  "startLine": 426,
+                  "startColumn": 50,
+                  "endLine": 426,
+                  "endColumn": 55,
+                  "charOffset": 12252,
+                  "charLength": 5,
                   "snippet": {
-                    "text": "TODO",
+                    "text": "rand(",
                     "rendered": {
-                      "text": "TODO",
-                      "markdown": "`TODO`"
+                      "text": "rand(",
+                      "markdown": "`rand(`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -1351,10 +2332,90 @@
             }
           ],
           "properties": {
-            "DevSkimSeverity": "ManualReview",
+            "DevSkimSeverity": "Important",
             "DevSkimConfidence": "High",
             "tags": [
-              "Hygiene.Comment.Suspicious"
+              "Cryptography.PRNG.Weak"
+            ]
+          }
+        },
+        {
+          "ruleId": "eeeb549a-4e88-3cd9-9833-7f306eb682cb",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Avoid Using Non-Cryptographic or Weak Random Number Generators"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_vector.cpp"
+                },
+                "region": {
+                  "startLine": 412,
+                  "startColumn": 78,
+                  "endLine": 412,
+                  "endColumn": 86,
+                  "charOffset": 11746,
+                  "charLength": 8,
+                  "snippet": {
+                    "text": "RAND_MAX",
+                    "rendered": {
+                      "text": "RAND_MAX",
+                      "markdown": "`RAND_MAX`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Important",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Cryptography.PRNG.Weak"
+            ]
+          }
+        },
+        {
+          "ruleId": "86340525-2329-3626-b4ce-78d4e753fb1f",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Avoid Using Non-Cryptographic or Weak Random Number Generators"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/base/host/host_vector.cpp"
+                },
+                "region": {
+                  "startLine": 412,
+                  "startColumn": 45,
+                  "endLine": 412,
+                  "endColumn": 50,
+                  "charOffset": 11713,
+                  "charLength": 5,
+                  "snippet": {
+                    "text": "rand(",
+                    "rendered": {
+                      "text": "rand(",
+                      "markdown": "`rand(`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Important",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Cryptography.PRNG.Weak"
             ]
           }
         }
